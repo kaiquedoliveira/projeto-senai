@@ -7,9 +7,9 @@ const authMiddleware = require('../middlewares/authMiddleware'); // Importando o
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'kaique',
-  password: 'Filhos@10112219',
-  database: 'plataforma_enem'
+  user: 'root',
+  password: 'Kaique@08',
+  database: 'projeto_senai'
 });
 
 // Rota de cadastro
@@ -35,8 +35,9 @@ router.post('/login', (req, res) => {
   connection.execute(query, [email], async (err, results) => {
     if (err) {
       console.error('Erro ao consultar no banco:', err);
-      return res.status(500).json({ message: 'Erro interno no servidor' });
+      return res.status(500).json({ message: 'Erro ao consultar o banco de dados' });
     }
+    
 
     if (results.length === 0) {
       return res.status(400).json({ message: 'Usuário não encontrado' });

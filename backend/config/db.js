@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'kaique', // seu nome de usuário
   password: 'Filhos@10112219', // sua senha
-  database: 'plataforma_enem' // o nome do banco de dados que você criou
+  database: 'projeto_senai' // o nome do banco de dados que você criou
 });
 
 // Conectar ao banco de dados
