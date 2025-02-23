@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEEM - Plataforma de Estudos</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/front-end/css/style.css">
 </head>
 <body>
     <!-- Cabeçalho -->
@@ -13,25 +13,46 @@
             <h1>NEEM</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Simulados</a></li>
-                    <li><a href="#">Sobre</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="/front-end/views/index.html">Início</a></li>
+                    <li><a href="/front-end/views/simulados.html">Simulados</a></li>
+                    <li><a href="/front-end/views/">Sobre</a></li>
+                    <li><a href="/front-end/views/login.html">Login</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Seção de Boas-Vindas -->
+    <section id="sobre">
+        <div class="container">
+            <h2>Bem-vindo ao NEEM!</h2>
+            <p>O NEEM é a plataforma de estudos que vai te ajudar a se preparar para o ENEM de forma prática e eficiente. Com simulados personalizados, você poderá estudar no seu próprio ritmo e conquistar os melhores resultados.</p>
+        </div>
+    </section>
+
+    <!-- Seção de Funcionalidades -->
+    <section id="simulados">
+        <div class="container">
+            <h2>Funcionalidades</h2>
+            <ul>
+                <li><strong>Simulados Personalizados:</strong> Testes adaptados ao seu nível de conhecimento.</li>
+                <li><strong>Fórum de Discussões:</strong> Tire dúvidas e compartilhe experiências com outros estudantes.</li>
+                <li><strong>Monitoramento de Desempenho:</strong> Acompanhe seu progresso e veja onde precisa melhorar.</li>
+                <li><strong>Timer de Provas:</strong> Simule o tempo real de prova para melhorar sua gestão de tempo.</li>
+            </ul>
+        </div>
+    </section>
+
     <!-- Seção de Login -->
-    <section class="login">
+    <section id="login">
         <div class="login-container">
-            <h2>Entrar</h2>
+            <h2>Entre com sua conta</h2>
             <form action="/login" method="POST">
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="senha" name="senha" placeholder="Senha" required>
                 <button type="submit">Entrar</button>
             </form>
-            <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+            <p>Não tem uma conta? <a href="/front-end/views/cadastro.html">Cadastre-se</a></p>
         </div>
     </section>
 
@@ -42,6 +63,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="/front-end/js/script.js"></script>
 </body>
 </html>

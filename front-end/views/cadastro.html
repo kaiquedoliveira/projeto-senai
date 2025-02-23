@@ -1,0 +1,60 @@
+<!-- cadastro.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - NEEN</title>
+  <link rel="stylesheet" href="/front-end/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Cadastro</h1>
+  </header>
+
+  <div class="cadastro-container">
+    <form id="cadastro-form">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p>Já tem uma conta? <a href="/front-end/views/login.html">Faça login</a></p>
+  </div>
+
+  <script>
+    const cadastroForm = document.getElementById('cadastro-form');
+
+    cadastroForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      const response = await fetch('/auth/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome, email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        alert('Cadastro realizado com sucesso!');
+        window.location.href = 'login.html'; // Redireciona para a página de login
+      } else {
+        alert(data.message); // Exibe a mensagem de erro
+      }
+    });
+  </script>
+</body>
+</html>

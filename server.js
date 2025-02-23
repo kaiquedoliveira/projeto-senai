@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');  // Importando CORS
-const authRoutes = require('./routes/authRoutes');  // Importando as rotas de autenticação
-const questionRoutes = require('./routes/questionRoutes');  // Importando as rotas de questões
+const authRoutes = require('./backend/routes/authRoutes');  // Importando as rotas de autenticação
+const questionRoutes = require('./backend/routes/questionRoutes');  // Importando as rotas de questões
 require('dotenv').config();  // Carregar variáveis de ambiente
 
 const app = express();

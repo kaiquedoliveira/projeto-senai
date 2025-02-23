@@ -2,20 +2,57 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - NEEN</title>
+  <link rel="stylesheet" href="/front-end/css/style.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" required>
-        <button type="submit">Entrar</button>
-    </form>
+  <header>
+    <h1>Login</h1>
+  </header>
 
-    <script src="js/login.js"></script>
+  <div class="login-container">
+    <form id="login-form">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <button type="submit">Entrar</button>
+    </form>
+    <p>Não tem uma conta? <a href="/front-end/views/cadastro.html">Cadastre-se</a></p>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        // Salvar o token no localStorage (ou sessionStorage)
+        localStorage.setItem('token', data.token);
+        alert('Login bem-sucedido!');
+        window.location.href = 'simulados.html'; // Redireciona para a página de simulados
+      } else {
+        alert(data.message); // Exibe a mensagem de erro
+      }
+    });
+  </script>
 </body>
 </html>
