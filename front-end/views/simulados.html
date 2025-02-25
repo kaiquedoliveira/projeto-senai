@@ -1,4 +1,3 @@
-<!-- simulado.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -30,8 +29,8 @@
         minutos++;
       }
 
-      const timerDisplay = document.getElementById('timer');
-      timerDisplay.innerText = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+      document.getElementById('timer').innerText = 
+        `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
       segundos++;
     }
 
@@ -39,36 +38,71 @@
       timer = setInterval(atualizarTimer, 1000);
     }
 
-    async function carregarSimulado(id) {
-      const response = await fetch(`/questions/${id}`);
-      const simulado = await response.json();
-      document.getElementById('simulado-titulo').innerText = simulado.titulo;
-
-      const questoesContainer = document.getElementById('questoes-container');
-      simulado.questoes.forEach(questao => {
-        const questaoElement = document.createElement('div');
-        questaoElement.classList.add('questao');
-        questaoElement.innerHTML = `
-          <p>${questao.pergunta}</p>
-          <ul>
-            ${questao.alternativas.map(alt => `<li><input type="radio" name="questao-${questao.id}" value="${alt}"> ${alt}</li>`).join('')}
-          </ul>
-        `;
-        questoesContainer.appendChild(questaoElement);
-      });
+    function obterIdSimulado() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id') || 1; // Padrão para 1 caso não tenha ID na URL
     }
 
-    function finalizarSimulado() {
+    async function carregarSimulado() {
+      const simuladoId = obterIdSimulado();
+      try {
+        const response = await fetch(`/questions/${simuladoId}`);
+        if (!response.ok) throw new Error('Erro ao carregar simulado');
+        const simulado = await response.json();
+
+        document.getElementById('simulado-titulo').innerText = simulado.titulo;
+
+        const questoesContainer = document.getElementById('questoes-container');
+        questoesContainer.innerHTML = ''; // Limpa antes de carregar
+
+        simulado.questoes.forEach(questao => {
+          const questaoElement = document.createElement('div');
+          questaoElement.classList.add('questao');
+          questaoElement.innerHTML = `
+            <p>${questao.pergunta}</p>
+            <ul>
+              ${questao.alternativas.map(alt => 
+                `<li><input type="radio" name="questao-${questao.id}" value="${alt}"> ${alt}</li>`).join('')}
+            </ul>
+          `;
+          questoesContainer.appendChild(questaoElement);
+        });
+      } catch (error) {
+        alert('Erro ao carregar simulado. Tente novamente.');
+      }
+    }
+
+    async function finalizarSimulado() {
       clearInterval(timer);
-      alert('Simulado finalizado!');
-      // Aqui você pode enviar as respostas ao back-end para processamento e salvar os resultados
+
+      const respostas = [];
+      document.querySelectorAll('.questao').forEach((questao, index) => {
+        const selecionada = questao.querySelector(`input[name="questao-${index + 1}"]:checked`);
+        respostas.push({
+          idQuestao: index + 1,
+          resposta: selecionada ? selecionada.value : null
+        });
+      });
+
+      try {
+        const response = await fetch('/submit-simulado', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idSimulado: obterIdSimulado(), respostas })
+        });
+
+        if (!response.ok) throw new Error('Erro ao enviar respostas');
+
+        alert('Simulado finalizado e respostas enviadas!');
+        window.location.href = '/resultado.html'; // Redireciona para página de resultados
+
+      } catch (error) {
+        alert('Erro ao finalizar simulado. Tente novamente.');
+      }
     }
 
-    // Aqui você pode capturar o ID do simulado na URL
-    const simuladoId = 1; // Exemplo estático, você precisa passar o ID correto com base na URL
-    carregarSimulado(simuladoId);
+    carregarSimulado();
     iniciarTimer();
   </script>
 </body>
 </html>
-
