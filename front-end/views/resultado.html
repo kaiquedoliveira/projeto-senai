@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado do Simulado - NEEN</title>
+  <link rel="stylesheet" href="/front-end/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Resultado do Simulado</h1>
+  </header>
+
+  <div id="resultado-container">
+    <p><strong>Nota:</strong> <span id="nota"></span></p>
+    <p><strong>Tempo gasto:</strong> <span id="tempo"></span></p>
+    <h2>Correção das Questões</h2>
+    <div id="correcao"></div>
+  </div>
+
+  <button onclick="voltarParaInicio()">Voltar para Início</button>
+
+  <script>
+    async function carregarResultado() {
+      const params = new URLSearchParams(window.location.search);
+      const simuladoId = params.get('id');
+
+      if (!simuladoId) {
+        alert('Simulado não encontrado!');
+        window.location.href = '/index.html';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/resultado-simulado?id=${simuladoId}`);
+        if (!response.ok) throw new Error('Erro ao carregar resultados');
+        const dados = await response.json();
+
+        document.getElementById('nota').innerText = dados.nota;
+        document.getElementById('tempo').innerText = dados.tempoGasto;
+
+        const correcaoContainer = document.getElementById('correcao');
+        correcaoContainer.innerHTML = '';
+
+        dados.questoes.forEach(q => {
+          const questaoElement = document.createElement('div');
+          questaoElement.classList.add('questao-resultado');
+          questaoElement.innerHTML = `
+            <p><strong>Questão:</strong> ${q.pergunta}</p>
+            <p><strong>Sua resposta:</strong> ${q.respostaUsuario}</p>
+            <p><strong>Resposta correta:</strong> ${q.respostaCorreta}</p>
+            <p style="color: ${q.correta ? 'green' : 'red'}">
+              ${q.correta ? '✔ Correta' : '✖ Errada'}
+            </p>
+            <hr>
+          `;
+          correcaoContainer.appendChild(questaoElement);
+        });
+      } catch (error) {
+        alert('Erro ao carregar o resultado. Tente novamente.');
+      }
+    }
+
+    function voltarParaInicio() {
+      console.log("Redirecionando para página inicial...");
+      window.location.href = '/index.html'; // Ajuste se necessário
+    }
+
+    carregarResultado();
+  </script>
+</body>
+</html>

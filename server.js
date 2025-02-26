@@ -1,39 +1,26 @@
 const express = require('express');
-const cors = require('cors');  // Importando CORS
-const authRoutes = require('./backend/routes/authRoutes');  // Importando as rotas de autenticação
-const questionRoutes = require('./backend/routes/questionRoutes');  // Importando as rotas de questões
-require('dotenv').config();  // Carregar variáveis de ambiente
+const cors = require('cors');
+const authRoutes = require('./backend/routes/authRoutes');
+const questionRoutes = require('./backend/routes/questionRoutes');
+const simuladoRoutes = require('./backend/routes/simuladoRoutes');  // Importando rotas de simulados
+const resultadoRoutes = require('./backend/routes/resultadoRoutes'); // Importando rotas de resultados
 
 const app = express();
 
-// Middleware para parsear o corpo da requisição
-app.use(express.json());  // Substitui body-parser
+app.use(express.json());
+app.use(cors());
 
-// Middleware para habilitar CORS (se necessário)
-app.use(cors());  // Permite solicitações de diferentes origens (domínios)
+app.use('/auth', authRoutes);
+app.use('/questions', questionRoutes);
+app.use('/simulados', simuladoRoutes);  // Adicionando a rota de simulados
+app.use('/resultados', resultadoRoutes); // Adicionando a rota de resultados
 
-// Rotas
-app.use('/auth', authRoutes);  // As rotas de autenticação estarão disponíveis em '/auth'
-app.use('/questions', questionRoutes);  // Rota para questões
-
-// Middleware de tratamento de erros
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Erro interno do servidor' });
 });
 
-// Inicia o servidor
-const port = process.env.PORT || 3001;  // Permite definir a porta via variável de ambiente
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-
-
-
-
-
-
-
-
-
