@@ -1,68 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEEM - Plataforma de Estudos</title>
-    <link rel="stylesheet" href="/front-end/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma ENEM</title>
+  <link rel="stylesheet" href="/front-end/css/style.css">
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <div class="container">
-            <h1>NEEM</h1>
-            <nav>
-                <ul>
-                    <li><a href="/front-end/views/index.html">Início</a></li>
-                    <li><a href="/front-end/views/simulados.html">Simulados</a></li>
-                    <li><a href="/front-end/views/">Sobre</a></li>
-                    <li><a href="/front-end/views/login.html">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header>
+    <h1>Bem-vindo à Plataforma ENEM</h1>
+    <nav>
+      <a href="/front-end/views/login.html">Login</a> | <a href="/front-end/views/cadastro.html">Cadastro</a>
+    </nav>
+  </header>
 
-    <!-- Seção de Boas-Vindas -->
-    <section id="sobre">
-        <div class="container">
-            <h2>Bem-vindo ao NEEM!</h2>
-            <p>O NEEM é a plataforma de estudos que vai te ajudar a se preparar para o ENEM de forma prática e eficiente. Com simulados personalizados, você poderá estudar no seu próprio ritmo e conquistar os melhores resultados.</p>
-        </div>
-    </section>
+  <section id="conteudos-recomendados">
+    <h2>Conteúdos recomendados</h2>
+    <ul>
+      <li><a href="/front-end/views/content-simulados.html">Simulados</a></li>
+      <li><a href="/front-end/views/ content-youtube.html">Canais no YouTube</a></li>
+      <li><a href="/front-end/views/content-cursos.html">Cursinhos Online</a></li>
+      <li><a href="/front-end/views/content-noticias.html">Notícias do ENEM</a></li>
+    </ul>
+  </section>
 
-    <!-- Seção de Funcionalidades -->
-    <section id="simulados">
-        <div class="container">
-            <h2>Funcionalidades</h2>
-            <ul>
-                <li><strong>Simulados Personalizados:</strong> Testes adaptados ao seu nível de conhecimento.</li>
-                <li><strong>Fórum de Discussões:</strong> Tire dúvidas e compartilhe experiências com outros estudantes.</li>
-                <li><strong>Monitoramento de Desempenho:</strong> Acompanhe seu progresso e veja onde precisa melhorar.</li>
-                <li><strong>Timer de Provas:</strong> Simule o tempo real de prova para melhorar sua gestão de tempo.</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Seção de Login -->
-    <section id="login">
-        <div class="login-container">
-            <h2>Entre com sua conta</h2>
-            <form action="/login" method="POST">
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <input type="password" id="senha" name="senha" placeholder="Senha" required>
-                <button type="submit">Entrar</button>
-            </form>
-            <p>Não tem uma conta? <a href="/front-end/views/cadastro.html">Cadastre-se</a></p>
-        </div>
-    </section>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 NEEM. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <script src="/front-end/js/script.js"></script>
+  <footer>
+    <p>&copy; 2025 Plataforma ENEM</p>
+  </footer>
 </body>
 </html>

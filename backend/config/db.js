@@ -4,9 +4,9 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'Kaique@08', 
-  database: 'plataforma_enem',
+  database: 'projeto_senai',
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 100,
   queueLimit: 0
 });
 

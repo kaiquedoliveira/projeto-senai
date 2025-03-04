@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 });
 
 // Rota de cadastro
-router.post('/cadastro', async (req, res) => {
+router.post('./cadastro/', async (req, res) => {
   const { nome, email, senha } = req.body;
   const hashedPassword = await bcrypt.hash(senha, 10);
 
@@ -28,7 +28,7 @@ router.post('/cadastro', async (req, res) => {
 });
 
 // Rota de login
-router.post('/login', (req, res) => {
+router.post('/login/', (req, res) => {
   const { email, senha } = req.body;
 
   const query = 'SELECT * FROM usuarios WHERE email = ?';

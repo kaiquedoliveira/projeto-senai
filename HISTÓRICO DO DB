@@ -1,118 +1,15 @@
-HISTÓRICO BASE DO NOSSO DB!
-
 CREATE DATABASE projeto_senai;
-USE projeto_senai;
-
-Agora, criamos a tabela usuarios:
-
-CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 
-Agora, criamos a tabela simulados, que estará ligada aos usuários:
 
-CREATE TABLE simulados (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    titulo VARCHAR(255) NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
+--tabela usuarios
 
-SHOW TABLES;
-
-(base)
-
-
-//continuação//
-
-
--- Criando a tabela de Usuários (Login e Cadastro)
 CREATE TABLE IF NOT EXISTS usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  foto_perfil VARCHAR(255) DEFAULT NULL,  -- Campo opcional para a foto de perfil
+  data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
 );
-
--- Criando a tabela de Questões (Perguntas do Simulado)
-CREATE TABLE IF NOT EXISTS questoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    disciplina VARCHAR(50) NOT NULL,
-    enunciado TEXT NOT NULL,
-    alternativa_a VARCHAR(255) NOT NULL,
-    alternativa_b VARCHAR(255) NOT NULL,
-    alternativa_c VARCHAR(255) NOT NULL,
-    alternativa_d VARCHAR(255) NOT NULL,
-    alternativa_e VARCHAR(255) NOT NULL,
-    correta CHAR(1) NOT NULL
-);
-
--- Criando a tabela de Simulados
-CREATE TABLE IF NOT EXISTS simulados (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(100) NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Criando a tabela de relação entre Simulados e Questões
-CREATE TABLE IF NOT EXISTS simulado_questoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    simulado_id INT,
-    questao_id INT,
-    FOREIGN KEY (simulado_id) REFERENCES simulados(id) ON DELETE CASCADE,
-    FOREIGN KEY (questao_id) REFERENCES questoes(id) ON DELETE CASCADE
-);
-
--- Criando a tabela de Resultados do Simulado
-CREATE TABLE IF NOT EXISTS resultados (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT,
-    simulado_id INT,
-    acertos INT NOT NULL,
-    total_questoes INT NOT NULL,
-    data_realizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    FOREIGN KEY (simulado_id) REFERENCES simulados(id) ON DELETE CASCADE
-);
-
-
--- insaerindo usuarios teste
-INSERT INTO usuarios (nome, email, senha) VALUES
-('João Silva', 'joao@email.com', '123456'),
-('Maria Souza', 'maria@email.com', 'senha123'),
-('Carlos Lima', 'carlos@email.com', 'abcde');
-
-
---inserindo questões teste
-INSERT INTO questoes (disciplina, enunciado, alternativa_a, alternativa_b, alternativa_c, alternativa_d, alternativa_e, correta) VALUES
-('Matemática', 'Quanto é 2 + 2?', '1', '2', '3', '4', '5', 'D'),
-('História', 'Quem descobriu o Brasil?', 'Pedro Álvares Cabral', 'Cristóvão Colombo', 'Dom Pedro I', 'Vasco da Gama', 'Nenhuma das anteriores', 'A'),
-('Química', 'Qual é a fórmula da água?', 'H2O', 'CO2', 'O2', 'NaCl', 'NH3', 'A');
-
-
---criando simulado teste
-
-INSERT INTO simulados (titulo) VALUES
-('Simulado ENEM 01');
-
-
---ligando questões ao simulado
-
-INSERT INTO simulado_questoes (simulado_id, questao_id) VALUES
-(1, 1),
-(1, 2),
-(1, 3);
-
-
---inserindo resultados fictícios
-INSERT INTO resultados (usuario_id, simulado_id, acertos, total_questoes) VALUES
-(1, 1, 2, 3),
-(2, 1, 1, 3);
-
-
