@@ -13,3 +13,26 @@ CREATE TABLE IF NOT EXISTS usuarios (
   data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
+
+
+
+.nav-logo img {
+  height: 100px; /* Ajuste o tamanho da logo conforme necessário */
+  width: auto;
+  max-width: 100%;
+}
+
+
+header>
+      <nav>
+        <div class="nav-logo">
+           alt="Log<img src="../images/indexLogo.png"o">
+        </div>
+        <div class="nav-links">
+          <a href="/front-end/views/login.html" class="btn">Login</a>
+          <a href="/front-end/views/cadastro.html" class="btn">Cadastro</a>
+          <a href="/front-end/views/quemsomos.html" class="btn">Quem somos</a>
+        </div>
+      </nav>
+    </header>
+  
